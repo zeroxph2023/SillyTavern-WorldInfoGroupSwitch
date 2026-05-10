@@ -211,7 +211,7 @@ const renderGroupedView = (ctx) => {
 
                 for (const bookName of books) {
                     const item = document.createElement('li'); {
-                        item.classList.add('stwis--ctxItem', 'list-group-item');
+                        item.classList.add('stwis--ctxItem', 'list-group-item', 'stwigp--bookItem');
                         const lbl = document.createElement('label'); {
                             lbl.classList.add('stwigp--bookLabel');
                             // checkbox
@@ -252,8 +252,23 @@ const renderGroupedView = (ctx) => {
                                 }
                                 sel.addEventListener('change', () => {
                                     moveBook(bookName, groupName, sel.value);
-                                    ctx.innerHTML = '';
-                                    renderGroupedView(ctx);
+                                    // Refresh book's displayed group inline
+                                    lbl.setAttribute('data-group', sel.value);
+                                    // Update group counts in left panel
+                                    for (const gi of leftPanel.querySelectorAll('.stwigp--groupItem')) {
+                                        const gn = gi.getAttribute('data-group');
+                                        const cnt = gn === '__ungrouped__'
+                                            ? getUngroupedBooks().length
+                                            : (settings.groups[gn]?.length ?? 0);
+                                        const cs = gi.querySelector('.stwigp--groupCount');
+                                        if (cs) cs.textContent = cnt;
+                                    }
+                                    // Remove book from right panel (it no longer belongs to this group)
+                                    item.remove();
+                                    // If right panel now empty, show empty hint
+                                    if (!rightPanel.querySelector('.stwigp--bookItem')) {
+                                        rightPanel.innerHTML = '<li class="stwis--ctxItem list-group-item" style="color:#666; cursor:default;">该分组无世界书</li>';
+                                    }
                                 });
                                 lbl.append(sel);
                             }
