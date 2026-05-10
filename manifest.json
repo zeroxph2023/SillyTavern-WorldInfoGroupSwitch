@@ -1,0 +1,11 @@
+{
+    "display_name": "WorldInfo Group Switch",
+    "loading_order": 101,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "style.css",
+    "author": "zeroxph2023",
+    "version": "1.0.0",
+    "homePage": "https://github.com/zeroxph2023/SillyTavern-WorldInfogroupPresets"
+}

@@ -1,0 +1,231 @@
+/* ── Overlay (from World Info Switch) ── */
+.stwis--ctxBlocker {
+  cursor: default;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+}
+.stwis--ctxBlocker .stwis--wrapper {
+  --stwis--y: 100vh;
+  display: flex;
+  bottom: 0;
+  left: var(--nav-bar-width);
+  margin: 0;
+  position: absolute;
+  top: 0;
+}
+body.stwis--nonDiscord .stwis--ctxBlocker .stwis--wrapper {
+  top: var(--stwis--y);
+}
+.stwis--ctxBlocker .stwis--ctxMenu {
+  flex: 0 0 auto;
+  flex-direction: column;
+  overflow: auto;
+  min-width: 100px;
+}
+.stwis--ctxBlocker .stwis--ctxMenu.stwis--secondary {
+  flex: 1 1 auto;
+}
+.stwis--ctxBlocker .stwis--ctxMenu.stwis--secondary .stwis--ctxName {
+  width: 300px;
+}
+.stwis--ctxBlocker .stwis--ctxMenu .stwis--ctxItem {
+  display: block;
+  gap: 1em;
+  align-items: center;
+  opacity: 0.5;
+  padding: 0;
+  transition: 200ms;
+  border-bottom: 2px solid var(--SmartThemeBorderColor);
+}
+.stwis--ctxBlocker .stwis--ctxMenu .stwis--ctxItem:hover {
+  opacity: 1;
+}
+.stwis--ctxBlocker .stwis--ctxMenu .stwis--ctxItem label {
+  display: flex;
+  gap: 0.5em;
+  align-items: baseline;
+  cursor: pointer;
+  padding: 5px;
+}
+.stwis--ctxBlocker .stwis--ctxMenu .stwis--ctxItem label .stwis--ctxName {
+  flex: 1 1 auto;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* ── Badge counter ── */
+#WI-SP-button > .drawer-toggle:not([data-stwis--count="0"]) {
+  position: relative;
+}
+#WI-SP-button > .drawer-toggle:not([data-stwis--count="0"]):hover::after {
+  opacity: 1;
+}
+#WI-SP-button > .drawer-toggle:not([data-stwis--count="0"])::after {
+  content: attr(data-stwis--count);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 0.65em;
+  font-weight: bold;
+  background: var(--SmartThemeQuoteColor);
+  line-height: 1;
+  padding: 0.25em;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  height: 1lh;
+  text-align: center;
+  opacity: 0.5;
+  pointer-events: none;
+  transition: 200ms;
+}
+#WI-SP-button > .drawer-toggle:not([data-stwis--count="0"]).stwis--in::after {
+  animation: stwis--popin 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+#WI-SP-button > .drawer-toggle:not([data-stwis--count="0"]).stwis--out::after {
+  animation: stwis--popin 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) reverse;
+}
+#WI-SP-button > .drawer-toggle:not([data-stwis--count="0"]).stwis--bounce::after {
+  animation: stwis--bounce 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation-iteration-count: 2;
+}
+@keyframes stwis--popin {
+  0%   { transform: scale(0);   opacity: 0; }
+  48%  { transform: scale(1.2); opacity: 1; }
+  80%  { transform: scale(1);   opacity: 1; }
+  100% { transform: scale(1);   opacity: 0.5; }
+}
+@keyframes stwis--bounce {
+  0%   { opacity:0.5; transform: scale(1)     translateY(0); }
+  10%  { opacity:1;   transform: scale(1.1,0.9) translateY(0); }
+  30%  { opacity:1;   transform: scale(0.9,1.1) translateY(-0.5em); }
+  50%  { opacity:1;   transform: scale(1.05,0.95) translateY(0); }
+  57%  { opacity:1;   transform: scale(1)     translateY(-0.125em); }
+  64%  { opacity:1;   transform: scale(1)     translateY(0); }
+  90%  { opacity:1;   transform: scale(1)     translateY(0); }
+  100% { opacity:0.5; transform: scale(1)     translateY(0); }
+}
+
+/* ════════════════════════════════════════════ */
+/* ── Two-choice menu ── */
+/* ════════════════════════════════════════════ */
+.stwigp--choiceMenu {
+  position: fixed;
+  z-index: 10001;
+  background: var(--SmartThemeBlurTintColor, #1a1a1a);
+  border: 1px solid var(--SmartThemeBorderColor, #444);
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 140px;
+}
+.stwigp--choiceItem {
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 0.9em;
+  text-align: center;
+  transition: background 120ms;
+}
+.stwigp--choiceItem:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+/* ════════════════════════════════════════════ */
+/* ── Group mode: group item in left panel ── */
+/* ════════════════════════════════════════════ */
+.stwigp--groupItem {
+  cursor: default !important;
+}
+.stwigp--groupItem .stwigp--groupLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 5px;
+}
+.stwigp--groupItem .stwigp--groupLabel .stwigp--groupName {
+  flex: 1 1 auto;
+  font-weight: 600;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.stwigp--groupItem .stwigp--groupLabel .stwigp--groupCount {
+  font-size: 0.8em;
+  opacity: 0.6;
+}
+.stwigp--groupItem .stwigp--groupLabel .stwigp--masterCb {
+  width: 14px; height: 14px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.stwigp--groupItem .stwigp--groupLabel .stwigp--delGroup {
+  color: var(--warning, #c33);
+  cursor: pointer;
+  font-size: 0.8em;
+  padding: 2px 6px;
+  border-radius: 3px;
+  opacity: 0.4;
+  flex-shrink: 0;
+}
+.stwigp--groupItem .stwigp--groupLabel .stwigp--delGroup:hover {
+  opacity: 1;
+}
+
+/* ── Group mode: management bar ── */
+.stwigp--mgmtItem {
+  cursor: default !important;
+  border-bottom: 2px solid var(--SmartThemeEmColor, #e6c300) !important;
+}
+.stwigp--mgmtItem .stwigp--mgmtBar {
+  display: flex;
+  gap: 4px;
+  padding: 5px;
+  align-items: center;
+}
+.stwigp--mgmtBar input {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 0.85em;
+  padding: 3px 6px;
+}
+.stwigp--mgmtBar .stwigp--addBtn {
+  white-space: nowrap;
+  padding: 3px 10px;
+  cursor: pointer;
+  font-size: 0.8em;
+  flex-shrink: 0;
+}
+
+/* ── Group mode: book row in right panel ── */
+.stwigp--bookLabel {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.4em !important;
+  cursor: default !important;
+}
+.stwigp--bookLabel input[type="checkbox"] {
+  width: 14px; height: 14px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.stwigp--bookLabel .stwis--ctxName {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.stwigp--bookLabel .stwigp--moveSelect {
+  flex-shrink: 0;
+  width: 90px;
+  min-width: 0;
+  font-size: 0.7em;
+  padding: 1px 2px;
+  opacity: 0.4;
+  transition: opacity 120ms;
+}
+.stwis--ctxItem:hover .stwigp--moveSelect {
+  opacity: 1;
+}
